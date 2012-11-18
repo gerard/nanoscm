@@ -48,21 +48,17 @@ void ast_debug_print(struct ast_node *node)
         putchar('(');
         ast_debug_print(node->call);
         putchar(')');
-        if (node->next) {
-            putchar(' ');
-            ast_debug_print(node->next);
-        }
         break;
     case AST_NODE_TYPE_SYM:
         printf("%s", sym_debug_get_name(node->sym));
-        node = node->next;
-        while (node) {
-            printf(" %s", sym_debug_get_name(node->sym));
-            node = node->next;
-        }
         break;
     default:
         break;
+    }
+
+    if (node->next) {
+        putchar(' ');
+        ast_debug_print(node->next);
     }
 }
 
